@@ -1,0 +1,9 @@
+- hosts: web
+  tasks:
+    - name: Installing php-fpm
+      apt: name=php-fpm state=present
+      notify: Enable php-fpm
+
+  handlers:
+    - name: Enable php-fpm
+      systemd: name=php-fpm enabled=yes state=started

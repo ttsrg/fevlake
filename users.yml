@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: Check sudo installed
+      apt: name=sudo state=present
+
+    - name: Check sudo without passwd
+      tempate: src=sudoers.j2 dest=/etc/sudoers owner=root group=root mode=0440
+
+    - name: Add user: liquidpredator
+      user: name=liquidpredator append=yes groups=sudo state=present
+      authorized_key: state=present user=liquidpredator key=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQcYpJ1AWQdaYPCJRifLW7AWaP5yJt9y456/qeHJpeB7Z8VElONFTocUI3c4iWcdILiCsBDMwQRwMzwjUyRwwfFIREe0sLatgfzKKGJx1FF2ra3D4z7bgkjjhOnqNB5XPhGRy4iOVIkvTjBMFsByuE0JMSghrXGLLg0qI61uA0AGFHq2yvGzCLwNS2wh4nh2ePooxUwNDJwXZHgVofZ2TC2nbN+X5OFJ+CmP47N9uh7jM63FthG6MZ8uNglRTUEX6XeafVkyaDmgCMcn4Dna9o/8lMdy9sZXhICHFj7CskVxapz+y8Mwn3vVQyFh+xsZK3H5KBq/188YuG5LYURSif
+      
