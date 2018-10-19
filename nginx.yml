@@ -1,5 +1,6 @@
 ---
 - hosts: web
+  remote_user: liquidpredator
   tasks:
     - name: Installing NGINX
       apt: name=nginx state=present

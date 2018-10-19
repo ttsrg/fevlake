@@ -1,5 +1,6 @@
 ---
 - hosts: web
+  remote_user: liquidpredator
   tasks:
     - name: Installing NGINX configuration
       copy: src=confs/liquidpredator.devops.srwx.net dest=/etc/nginx/sites-avalible/liquidpredator.devops.srwx.net owner=root group=root mode=0644

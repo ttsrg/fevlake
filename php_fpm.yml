@@ -1,4 +1,5 @@
 - hosts: web
+  remote_user: liquidpredator
   tasks:
     - name: Installing php-fpm
       apt: name=php-fpm state=present

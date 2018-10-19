@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  remote_user: root
   gather_facts: no
   tasks:
     - name: Installing Py2.7
