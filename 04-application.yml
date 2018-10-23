@@ -4,8 +4,8 @@
   become_method: sudo
   tasks:
     - name: Installing NGINX configuration
-      copy:
-        src: confs/liquidpredator.devops.srwx.net.conf
+      template:
+        src: liquidpredator.devops.srwx.net.conf.j2
         dest: /etc/nginx/sites-available/liquidpredator.devops.srwx.net
         owner: root
         group: root
