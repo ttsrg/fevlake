@@ -1,26 +1,67 @@
 ---
 - hosts: web
   remote_user: liquidpredator
+  become_method: sudo
   tasks:
     - name: Installing NGINX configuration
-      copy: src=confs/liquidpredator.devops.srwx.net dest=/etc/nginx/sites-avalible/liquidpredator.devops.srwx.net owner=root group=root mode=0644
-      file: src=/etc/nginx/sites-avalible/liquidpredator.devops.srwx.net path=/etc/nginx/sites-enabled/liquidpredator.devops.srwx.net state=link
+      copy:
+        src: confs/liquidpredator.devops.srwx.net
+        dest: /etc/nginx/sites-avalible/liquidpredator.devops.srwx.net
+        owner: root
+        group: root
+        mode: 0644
+      file:
+        src: /etc/nginx/sites-avalible/liquidpredator.devops.srwx.net
+        path: /etc/nginx/sites-enabled/liquidpredator.devops.srwx.net
+        state: link
+      become: yes
       notify: NGINX reload
 
     - name: Installing Frontend application
-      copy: src=front/ dest=/srv/frontend/ owner=root group=root mode=0644
+      copy:
+        src: front/
+        dest: /srv/frontend/
+        owner: root
+        group: root
+        mode: 0644
+      become: yes
 
     - name: Installing PHPAPI application
-      copy: src=php/ dest=/srv/phpapi/ owner=root group=root mode=0644
+      copy:
+        src: php/
+        dest: /srv/phpapi/
+        owner: root
+        group: root
+        mode: 0644
+      become: yes
 
     - name: Installing GO application
-      copy: src=go/ dest=/srv/goapi owner=root group=root mode=0644
-      copy: src=sysd/goapp.service dest=/lib/systemd/system/goapp.service owner=root group=root mode=0644
+      copy:
+        src: go/
+        dest: /srv/goapi
+        owner: root
+        group: root
+        mode: 0644
+      copy:
+        src: sysd/goapp.service
+        dest: /lib/systemd/system/goapp.service
+        owner: root
+        group: root
+        mode: 0644
+      become: yes
       notify: Enable GO application
 
   handlers:
     - name: NGINX reload
-      systemd: name=nginx state=reloaded
+      systemd:
+        name: nginx
+        state: reloaded
+      become: yes
 
     - name: Enable GO application
-      systemd: daemon_reload=yes name=goapp enabled=yes state=started
+      systemd:
+        daemon_reload: yes
+        name: goapp.service
+        enabled: yes
+        state: started
+      become: yes
