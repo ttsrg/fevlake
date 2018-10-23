@@ -5,13 +5,16 @@
   tasks:
     - name: Installing NGINX configuration
       copy:
-        src: confs/liquidpredator.devops.srwx.net
-        dest: /etc/nginx/sites-avalible/liquidpredator.devops.srwx.net
+        src: confs/liquidpredator.devops.srwx.net.conf
+        dest: /etc/nginx/sites-available/liquidpredator.devops.srwx.net
         owner: root
         group: root
         mode: 0644
+      become: yes
+
+    - name: Enabling NGINX configuration
       file:
-        src: /etc/nginx/sites-avalible/liquidpredator.devops.srwx.net
+        src: /etc/nginx/sites-available/liquidpredator.devops.srwx.net
         path: /etc/nginx/sites-enabled/liquidpredator.devops.srwx.net
         state: link
       become: yes
@@ -38,16 +41,19 @@
     - name: Installing GO application
       copy:
         src: go/
-        dest: /srv/goapi
+        dest: /srv/goapi/
         owner: root
         group: root
         mode: 0644
+      become: yes
+    
+    - name: Installing GO application service
       copy:
         src: sysd/goapp.service
         dest: /lib/systemd/system/goapp.service
         owner: root
         group: root
-        mode: 0644
+        mode: 0744
       become: yes
       notify: Enable GO application
 

@@ -9,18 +9,20 @@
 
     - name: Check sudo without passwd
       copy:
-        src: confs/sudoers
+        src: files/sudoers
         dest: /etc/sudoers
         owner: root
         group: root
         mode: 0440
 
-    - name: Add user: liquidpredator
+    - name: Add user liquidpredator
       user:
         name: liquidpredator
         append: yes
         groups: sudo
         state: present
+
+    - name: Add ssh keys for liquidpredator
       authorized_key:
         state: present
         user: liquidpredator

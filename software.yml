@@ -25,19 +25,20 @@
 
     - name: Installing Certbot
       apt:
-        name: certbot
+        name: python-certbot-nginx
         state: present
       become: yes
 
     - name: Get LE certificate
       raw: certbot --nginx certonly --domains {{ inventory_hostname }} --email liquidpredator@gmail.com --non-interactive --agree-tos
+      become: yes
 
     - name: Removing default NGINX config
       file:
         path: /etc/nginx/sites-enabled/default
         state: absent
       become: yes
-      notify: reload NGINX
+      notify: Reload NGINX
 
   handlers:
     - name: Reload NGINX
