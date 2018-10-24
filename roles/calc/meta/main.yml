@@ -1,0 +1,9 @@
+---
+dependencies:
+  - { role: geerlingguy.nginx }
+  - { role: geerlingguy.php }
+  - { role: geerlingguy.git }
+  - { role: geerlingguy.certbot }
+#  - calc-front
+#  - calc-sum
+#  - calc-diff

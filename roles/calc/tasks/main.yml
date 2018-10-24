@@ -1,0 +1,16 @@
+---
+
+- name: Installing NGINX site
+  template:
+    src: site.conf.j2
+    dest: /etc/nginx/sites-available/{{ calc_domain_name }}.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enabling NGINX configuration
+  file:
+    src: /etc/nginx/sites-available/{{ calc_domain_name }}.conf
+    path: /etc/nginx/sites-enabled/{{ calc_domain_name }}.conf
+    state: link
+  notify: NGINX reload
