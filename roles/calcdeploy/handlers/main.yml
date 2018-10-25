@@ -1,0 +1,5 @@
+---
+- name: restart goapp
+  systemd:
+    name: goapp.service
+    state: restarted

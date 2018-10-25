@@ -1,0 +1,6 @@
+---
+calcdeploy_webapps_dir: /srv
+calcdeploy_repos: 
+  - { name: phpapi, repo: "https://github.com/liquidpredator/fevlake-calc-diff.git", version: v0.1 }
+  - { name: front, repo: "https://github.com/liquidpredator/fevlake-calc-front.git", version: v0.1 }
+  - { name: goapi, repo: "https://github.com/liquidpredator/fevlake-calc-sum.git", version: v0.1 }

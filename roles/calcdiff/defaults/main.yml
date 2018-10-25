@@ -1,5 +1,0 @@
----
-calcdiff_app_name: phpapi
-calcdiff_webapps_dir: /srv
-calcdiff_repo_url: https://github.com/liquidpredator/fevlake-calc-diff.git
-calcdiff_repo_branch: master

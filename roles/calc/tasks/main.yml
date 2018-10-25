@@ -7,6 +7,7 @@
     owner: root
     group: root
     mode: 0644
+  notify: NGINX reload
 
 - name: Enabling NGINX configuration
   file:
@@ -14,3 +15,12 @@
     path: /etc/nginx/sites-enabled/{{ calc_domain_name }}.conf
     state: link
   notify: NGINX reload
+
+- name: Installing GO API service
+  template:
+    src: goapp.service
+    dest: /etc/systemd/system/goapp.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload daemons

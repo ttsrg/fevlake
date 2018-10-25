@@ -4,6 +4,3 @@ dependencies:
   - { role: geerlingguy.php }
   - { role: geerlingguy.git }
   - { role: geerlingguy.certbot }
-#  - calc-front
-#  - calc-sum
-#  - calc-diff
