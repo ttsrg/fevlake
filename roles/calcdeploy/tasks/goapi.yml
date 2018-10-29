@@ -13,5 +13,6 @@
 
 - name: Building GO app
   shell: go build -o {{ calcdeploy_webapps_dir }}/goapi/main /var/repos/goapi/*.go
+  notify: restart GO app
   tags: deploy
 
