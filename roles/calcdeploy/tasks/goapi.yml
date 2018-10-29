@@ -1,0 +1,17 @@
+---
+- name: Checking for golang instalation
+  apt:
+    name: golang-go
+    state: present
+  tags: deploy
+
+- name: Checking for GO app directory
+  file:
+    path: "{{ calcdeploy_webapps_dir }}/goapi"
+    state: directory
+  tags: deploy
+
+- name: Building GO app
+  shell: go build -o {{ calcdeploy_webapps_dir }}/goapi/main /var/repos/goapi/*.go
+  tags: deploy
+

@@ -25,6 +25,15 @@
     calc_domain_name: liquidpredator.devops.srwx.net
     calc_fpm_version: 7.0
 
+    calcdeploy_repos: 
+      - { name: phpapi, repo: "https://github.com/liquidpredator/fevlake-calc-diff.git", version: v0.1 }
+      - { name: front, repo: "https://github.com/liquidpredator/fevlake-calc-front.git", version: v0.2 }
+      - { name: goapi, repo: "https://github.com/liquidpredator/fevlake-calc-sum.git", version: v0.2 }
+
   roles:
+    - geerlingguy.nginx
+    - geerlingguy.php
+    - geerlingguy.git
+    - geerlingguy.certbot
     - calc
     - calcdeploy

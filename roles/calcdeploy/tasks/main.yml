@@ -14,7 +14,7 @@
     - "{{ calcdeploy_repos }}"
   tags: deploy
 
-- name: Sync if changes
+- name: Sync front and phpapi if changes
   synchronize:
     src: "/var/repos/{{ item.item.name }}"
     dest: "{{ calcdeploy_webapps_dir }}"
@@ -23,17 +23,17 @@
     rsync_opts:
       - "--exclude=.git"
   delegate_to: "{{ inventory_hostname }}"
-  when: item.changed
+  when:
+    - item.changed
+    - (item.item.name == "front") or (item.item.name == "phpapi")
   register: sync
   with_items: "{{gitcheckout.results }}"
   tags: deploy
 
-- name: Restart GO app
-  systemd:
-    name: goapp.service
-    state: restarted
+- name: Include building GO app if changes
+  include_tasks: goapi.yml
   when: 
-    - item.changed
-    - item.item.item.name == "goapi"
-  with_items: "{{sync.results}}"
+    - item.changed == True
+    - item.item.name == "goapi"
+  with_items: "{{ gitcheckout.results }}"
   tags: deploy

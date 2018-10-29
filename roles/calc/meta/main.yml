@@ -1,6 +1,0 @@
----
-dependencies:
-  - { role: geerlingguy.nginx }
-  - { role: geerlingguy.php }
-  - { role: geerlingguy.git }
-  - { role: geerlingguy.certbot }
