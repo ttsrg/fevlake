@@ -43,6 +43,27 @@ resource "aws_security_group" "liquidpredator_hw5_sg_front" {
     to_port = 443
     protocol = "tcp"
   }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 32768
+    to_port = 65535
+    protocol = "tcp"
+  }
 }
 
 resource "aws_instance" "frontend" {
@@ -90,6 +111,27 @@ resource "aws_security_group" "liquidpredator_hw5_sg_back" {
     cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
     from_port = 9090
     to_port = 9090
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 32768
+    to_port = 65535
     protocol = "tcp"
   }
 }
