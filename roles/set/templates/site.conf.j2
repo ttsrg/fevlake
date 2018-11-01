@@ -1,0 +1,31 @@
+server {
+	listen 80;
+	server_name {{ set_domain_name }};
+	return 301 https://$server_name$request_uri;
+}
+
+server {
+	listen 443 ssl;
+	server_name {{ set_domain_name }};
+	
+	location / {
+		root /srv/front;
+		index index.html;
+	}
+
+	ssl_certificate /etc/letsencrypt/live/{{ set_domain_name  }}/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/{{ set_domain_name }}/privkey.pem;
+
+
+	location  /api/sum/ {
+		rewrite ^/api/sum/ / break;
+		proxy_pass http://{{ set_backend_ip }}:8080;
+	}
+
+	
+	location /api/diff/ {
+			fastcgi_pass {{ set_backend_ip }}:9090;
+			fastcgi_index main.php
+			include        fastcgi_params;
+	}
+}

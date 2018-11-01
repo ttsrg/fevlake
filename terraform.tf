@@ -76,3 +76,4 @@ resource "null_resource" "liquidpredator_hw5" {
   provisioner "local-exec" {
     command = "ansible-playbook -i terraform-inventory --private-key ${var.ssh_key} backend.yml"
   }
+}

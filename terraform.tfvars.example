@@ -1,3 +1,8 @@
+variable "admin_mail" {
+  type = "string"
+  default = "your@email.here"
+}
+
 variable "aws_access_key" {
   default = "accesskeyhere"
 }

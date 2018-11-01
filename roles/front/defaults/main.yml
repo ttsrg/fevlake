@@ -1,0 +1,7 @@
+---
+front_webapps_dir: /srv
+front_repo:
+  - name: front
+  - repo: "https://github.com/liquidpredator/fevlake-calc-front.git"
+  - version: master
+
