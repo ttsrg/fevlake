@@ -1,0 +1,25 @@
+---
+- name: Check repo directory
+  file:
+    path: /var/repos
+    state: directory
+
+- name: Checkout from git
+  git:
+    repo: "{{ phpapi_repo.repo }}"
+    dest: "/var/repos/{{ phpapi_repo.name }}"
+    version: "{{ phpapi_repo.version }}"
+  register: gitcheckout
+  tags: deploy
+
+- name: Sync front if changes
+  synchronize:
+    src: "/var/repos/{{ phpapi_repo.name }}"
+    dest: "{{ phpapi_webapps_dir }}"
+    recursive: yes
+    delete: yes
+    rsync_opts:
+      - "--exclude=.git"
+  delegate_to: "{{ inventory_hostname }}"
+  when: gitcheckout.changed
+  tags: deploy

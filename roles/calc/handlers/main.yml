@@ -1,9 +1,0 @@
----
-- name: NGINX reload
-  systemd:
-    name: nginx
-    state: reloaded
-
-- name: reload daemons
-  systemd:
-    daemon_reload: yes

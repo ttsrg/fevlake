@@ -1,0 +1,47 @@
+---
+- name: Check repo directory
+  file:
+    path: /var/repos
+    state: directory
+
+- name: Checking for golang instalation
+  apt:
+    name: golang-go
+    state: present
+  tags: deploy
+
+- name: Checking for GO app directory
+  file:
+    path: "{{ calcdeploy_webapps_dir }}/goapi"
+    state: directory
+  tags: deploy
+
+- name: Checkout from git
+  git:
+    repo: "{{ phpapi_repo.repo }}"
+    dest: "/var/repos/{{ phpapi_repo.name }}"
+    version: "{{ phpapi_repo.version }}"
+  register: gitcheckout
+  tags: deploy
+
+- name: Copy service file
+  copy:
+    src: goapp.service
+    dst: /etc/systemd/system/goapp.service
+    owner: root
+    group: root
+    mode: 0644
+  register: gosrv
+
+- name: Reload daemons & enable GOapp
+  systemd:
+    daemon_reload: yes
+    name: goapp.service
+    enabled: yes
+  when: gosrv.changed
+
+- name: Building GO app
+  shell: go build -o {{ goapi_webapps_dir }}/goapi/main /var/repos/goapi/*.go
+  notify: restart GO app
+  when: gitcheckout.changed
+  tags: deploy

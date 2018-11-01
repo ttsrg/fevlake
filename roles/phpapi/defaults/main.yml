@@ -1,0 +1,7 @@
+---
+phpapi_webapps_dir: /srv
+phpapi_repo:
+  - name: phpapi
+  - repo: "https://github.com/liquidpredator/fevlake-calc-phpapi.git"
+  - version: master
+

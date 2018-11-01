@@ -45,6 +45,7 @@ resource "aws_instance" "frontend" {
   provisioner "remote-exec" {
     inline = ["apt update && apt install -y python2.7-minimal && update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1"]
   }
+
 }
 
 resource "aws_instance" "backend" { 
@@ -69,6 +70,14 @@ resource "aws_route53_record" "liquidpredator_hw5__dns" {
 }
 
 resource "null_resource" "liquidpredator_hw5" {
+  provisioner "local-exec" {
+    command = "touch frontvars.yml && :> frontvars.yml && echo 'set_backend_ip: ${backend.public_ip}' >> frontvars.yml && echo 'set_domain_name: ${var.domain}' >> frontvars.yml && echo 'certbot_admin_email: ${var.admin_mail}' >> frontvars.yml"
+  }
+
+  provisioner "local-exec" {
+    command = "touch backvars.yml && :> backvars.yml && echo 'php_fpm_listen: \"${backend.public_ip}:9090\"' >> backvars.yml && echo 'php_fpm_listen_allowed_clients: \"${frontend.public_ip}\"' >> backvars.yml"
+  }
+
   provisioner "local-exec" {
     command = "ansible-playbook -i terraform-inventory --private-key ${var.ssh_key} frontend.yml"
   }
