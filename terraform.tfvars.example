@@ -1,0 +1,37 @@
+variable "aws_access_key" {
+  default = "accesskeyhere"
+}
+
+variable "aws_secret_key" {
+  default = "secretkeyhere"
+}
+
+variable "vpc_id" {
+  type = "string"
+  default = "yourvpcidhere"
+}
+
+variable "ssh_secure_subnet" {
+  type = "string"
+  default = "0.0.0.0/0"
+}
+
+variable "ssh_pub_key" {
+  type = "string"
+  default = "ssh-rsa contentofpublickeyhere"
+}
+
+variable "ssh_key" {
+  type = "string"
+  default = "/path/to/ssh/private/key/here"
+}
+
+variable "zone_id" {
+  type = "string"
+  default = "yourzoneidhere"
+}
+
+variable "domain" {
+  type    = "string"
+  default = "example.com"
+}
