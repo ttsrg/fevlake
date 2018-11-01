@@ -4,11 +4,9 @@ aws_access_key = "accesskeyhere"
 
 aws_secret_key = "secretkeyhere"
 
-vpc_id = "yourvpcidhere"
-
 ssh_secure_subnet = ["x.x.x.x/16", "y.y.y.y/32"]
 
-ssh_pub_key = "ssh-rsa contentofpublickeyhere"
+ssh_pub_key = "/path/to/ssh/public/key/here"
 
 ssh_key = "/path/to/ssh/private/key/here"
 

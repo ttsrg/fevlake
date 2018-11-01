@@ -1,5 +1,7 @@
 terraform.tfvars
 .terraform
+backvars.yml
+frontvars.yml
 *.retry
 *.swp
-*.tfstat*
+*.tfst*

@@ -1,7 +1,6 @@
 ---
 goapi_webapps_dir: /srv
-goapi_repo:
-  - name: goapi
-  - repo: "https://github.com/liquidpredator/fevlake-calc-goapi.git"
-  - version: master
+goapi_name: goapi
+goapi_repo: "https://github.com/liquidpredator/fevlake-calc-goapi.git"
+goapi_version: master
 

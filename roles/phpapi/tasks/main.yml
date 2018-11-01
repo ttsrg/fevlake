@@ -6,15 +6,15 @@
 
 - name: Checkout from git
   git:
-    repo: "{{ phpapi_repo.repo }}"
-    dest: "/var/repos/{{ phpapi_repo.name }}"
-    version: "{{ phpapi_repo.version }}"
+    repo: "{{ phpapi_repo }}"
+    dest: "/var/repos/{{ phpapi_name }}"
+    version: "{{ phpapi_version }}"
   register: gitcheckout
   tags: deploy
 
 - name: Sync front if changes
   synchronize:
-    src: "/var/repos/{{ phpapi_repo.name }}"
+    src: "/var/repos/{{ phpapi_name }}"
     dest: "{{ phpapi_webapps_dir }}"
     recursive: yes
     delete: yes

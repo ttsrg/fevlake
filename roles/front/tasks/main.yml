@@ -6,15 +6,15 @@
 
 - name: Checkout from git
   git:
-    repo: "{{ front_repo.repo }}"
-    dest: "/var/repos/{{ front_repo.name }}"
-    version: "{{ front_repo.version }}"
+    repo: "{{ front_repo }}"
+    dest: "/var/repos/{{ front_name }}"
+    version: "{{ front_version }}"
   register: gitcheckout
   tags: deploy
 
 - name: Sync front if changes
   synchronize:
-    src: "/var/repos/{{ front_repo.name }}"
+    src: "/var/repos/{{ front_name }}"
     dest: "{{ front_webapps_dir }}"
     recursive: yes
     delete: yes

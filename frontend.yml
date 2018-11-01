@@ -2,7 +2,7 @@
 - hosts: frontend
   remote_user: root
 
-  include_vars:
+  vars_files:
     - frontvars.yml
 
   vars:
@@ -12,14 +12,13 @@
     certbot_create_if_missing: true
     certbot_certs:
       - domains:
-          - {{ set_domain_name }}
+          - "{{ set_domain_name }}"
     certbot_create_standalone_stop_services:
       - nginx
-
-    front_repo: 
-      - name: front
-      - repo: "https://github.com/liquidpredator/fevlake-calc-front.git"
-      - version: master
+ 
+    front_name: front
+    front_repo: "https://github.com/liquidpredator/fevlake-calc-front.git"
+    front_version: master
 
   roles:
     - geerlingguy.nginx

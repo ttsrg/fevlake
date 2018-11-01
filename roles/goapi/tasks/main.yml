@@ -12,22 +12,22 @@
 
 - name: Checking for GO app directory
   file:
-    path: "{{ calcdeploy_webapps_dir }}/goapi"
+    path: "{{ goapi_webapps_dir }}/{{ goapi_name }}"
     state: directory
   tags: deploy
 
 - name: Checkout from git
   git:
-    repo: "{{ phpapi_repo.repo }}"
-    dest: "/var/repos/{{ phpapi_repo.name }}"
-    version: "{{ phpapi_repo.version }}"
+    repo: "{{ goapi_repo }}"
+    dest: "/var/repos/{{ goapi_name }}"
+    version: "{{ goapi_version }}"
   register: gitcheckout
   tags: deploy
 
 - name: Copy service file
   copy:
     src: goapp.service
-    dst: /etc/systemd/system/goapp.service
+    dest: /etc/systemd/system/goapp.service
     owner: root
     group: root
     mode: 0644
@@ -41,7 +41,7 @@
   when: gosrv.changed
 
 - name: Building GO app
-  shell: go build -o {{ goapi_webapps_dir }}/goapi/main /var/repos/goapi/*.go
+  shell: go build -o {{ goapi_webapps_dir }}/{{ goapi_name }}/main /var/repos/{{ goapi_name }}/*.go
   notify: restart GO app
   when: gitcheckout.changed
   tags: deploy

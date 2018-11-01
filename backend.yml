@@ -2,7 +2,7 @@
 - hosts: backend
   remote_user: root
 
-  include_vars:
+  vars_files:
     - backvars.yml
 
   vars:
@@ -11,15 +11,13 @@
     php_install_recommends: false
     php_enable_php_fpm: true
 
-    phpapi_repo: 
-      - name: phpapi
-      - repo: "https://github.com/liquidpredator/fevlake-calc-diff.git"
-      - version: master
+    phpapi_name: phpapi
+    phpapi_repo: "https://github.com/liquidpredator/fevlake-calc-diff.git"
+    phpapi_version: master
 
-    goapi_repo:
-      - name: goapi
-      - repo: "https://github.com/liquidpredator/fevlake-calc-sum.git"
-      - version: master
+    goapi_name: goapi
+    goapi_repo: "https://github.com/liquidpredator/fevlake-calc-sum.git"
+    goapi_version: master
 
   roles:
     - geerlingguy.php
