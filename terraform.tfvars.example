@@ -1,42 +1,17 @@
-variable "admin_mail" {
-  type = "string"
-  default = "your@email.here"
-}
+admin_mail = "your@email.here"
 
-variable "aws_access_key" {
-  default = "accesskeyhere"
-}
+aws_access_key = "accesskeyhere"
 
-variable "aws_secret_key" {
-  default = "secretkeyhere"
-}
+aws_secret_key = "secretkeyhere"
 
-variable "vpc_id" {
-  type = "string"
-  default = "yourvpcidhere"
-}
+vpc_id = "yourvpcidhere"
 
-variable "ssh_secure_subnet" {
-  type = "string"
-  default = "0.0.0.0/0"
-}
+ssh_secure_subnet = ["x.x.x.x/16", "y.y.y.y/32"]
 
-variable "ssh_pub_key" {
-  type = "string"
-  default = "ssh-rsa contentofpublickeyhere"
-}
+ssh_pub_key = "ssh-rsa contentofpublickeyhere"
 
-variable "ssh_key" {
-  type = "string"
-  default = "/path/to/ssh/private/key/here"
-}
+ssh_key = "/path/to/ssh/private/key/here"
 
-variable "zone_id" {
-  type = "string"
-  default = "yourzoneidhere"
-}
+zone_id = "yourzoneidhere"
 
-variable "domain" {
-  type    = "string"
-  default = "example.com"
-}
+domain = "example.com"
