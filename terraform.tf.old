@@ -18,112 +18,6 @@ resource "aws_key_pair" "liquidpredator_hw5_key" {
   public_key = "${file(var.ssh_pub_key)}"
 }
 
-resource "aws_security_group" "liquidpredator_hw5_sg_front" {
-  name = "liquidpredator_hw5_sg_front"
-
-  ingress {
-    cidr_blocks = "${var.ssh_secure_subnet}"
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-  }
-  
-  ingress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-  }
-
-  ingress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["${aws_instance.backend.public_ip}/32"]
-    from_port = 8080
-    to_port = 8080
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["${aws_instance.backend.public_ip}/32"]
-    from_port = 9090
-    to_port = 9090
-    protocol = "tcp"
-  }
-}
-
-resource "aws_security_group" "liquidpredator_hw5_sg_back" {
-  name = "liquidpredator_hw5_sg_back"
-
-  ingress {
-    cidr_blocks = "${var.ssh_secure_subnet}"
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-  }
-  
-  ingress {
-    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
-    from_port = 8080
-    to_port = 8080
-    protocol = "tcp"
-  }
-
-  ingress {
-    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
-    from_port = 9090
-    to_port = 9090
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
-    from_port = 8080
-    to_port = 8080
-    protocol = "tcp"
-  }
-
-  egress {
-    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
-    from_port = 9090
-    to_port = 9090
-    protocol = "tcp"
-  }
-}
-
 resource "aws_instance" "frontend" {
   ami = "ami-086a09d5b9fa35dc7"
   instance_type = "t2.micro"
@@ -167,6 +61,118 @@ resource "aws_instance" "backend" {
   }
 }
 
+resource "aws_security_group" "liquidpredator_hw5_sg_front" {
+  name = "liquidpredator_hw5_sg_front"
+
+  ingress {
+    cidr_blocks = "${var.ssh_secure_subnet}"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+  }
+  
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+  }
+
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["${aws_instance.backend.public_ip}/32"]
+#    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["${aws_instance.backend.public_ip}/32"]
+#    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 9090
+    to_port = 9090
+    protocol = "tcp"
+  }
+}
+
+resource "aws_security_group" "liquidpredator_hw5_sg_back" {
+  name = "liquidpredator_hw5_sg_back"
+
+  ingress {
+    cidr_blocks = "${var.ssh_secure_subnet}"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+  }
+  
+  ingress {
+    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
+#    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+  }
+
+  ingress {
+    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
+#    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 9090
+    to_port = 9090
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+  }
+
+  egress {
+#    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+  }
+
+  egress {
+#    cidr_blocks = ["${aws_instance.frontend.public_ip}/32"]
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 9090
+    to_port = 9090
+    protocol = "tcp"
+  }
+}
+
 resource "aws_route53_record" "liquidpredator_hw5_dns" {
   zone_id = "${var.zone_id}"
   name    = "${var.domain}"
@@ -180,9 +186,9 @@ resource "null_resource" "liquidpredator_hw5_deploy" {
     command = "touch frontvars.yml && :> frontvars.yml && echo 'set_backend_ip: \"${aws_instance.backend.public_ip}\"' >> frontvars.yml && echo 'set_domain_name: \"${var.domain}\"' >> frontvars.yml && echo 'certbot_admin_email: \"${var.admin_mail}\"' >> frontvars.yml"
   }
 
-  provisioner "local-exec" {
-    command = "touch backvars.yml && :> backvars.yml && echo 'php_fpm_listen: \"${aws_instance.backend.public_ip}:9090\"' >> backvars.yml && echo 'php_fpm_listen_allowed_clients: \"${aws_instance.frontend.public_ip}\"' >> backvars.yml"
-  }
+#  provisioner "local-exec" {
+#    command = "touch backvars.yml && :> backvars.yml && echo 'php_fpm_listen: \"${aws_instance.backend.public_ip}:9090\"' >> backvars.yml && echo 'php_fpm_listen_allowed_clients: \"${aws_instance.frontend.public_ip}\"' >> backvars.yml"
+#  }
 
   provisioner "local-exec" {
     command = "ansible-playbook -i terraform-inventory --private-key ${var.ssh_key} frontend.yml"
