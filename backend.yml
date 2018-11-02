@@ -8,7 +8,8 @@
   vars:
     php_packages:
       - php-fpm
-        #    php_install_recommends: false
+    php_install_recommends: false
+    php_enable_webserver: False
     php_enable_php_fpm: true
     php_fpm_listen: 9090
 
