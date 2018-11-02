@@ -1,4 +1,4 @@
-terraform.tfvars
+hw5.auto.tfvars
 .terraform
 backvars.yml
 frontvars.yml
