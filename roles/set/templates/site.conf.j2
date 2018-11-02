@@ -26,6 +26,7 @@ server {
 	location /api/diff/ {
 			fastcgi_pass {{ set_backend_ip }}:9090;
 			fastcgi_index main.php;
+			include fastcgi_params;
 			fastcgi_param  SCRIPT_FILENAME  /srv/phpapi/main.php;
 	}
 }
